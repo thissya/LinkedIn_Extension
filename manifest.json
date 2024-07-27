@@ -1,0 +1,25 @@
+
+{
+    "manifest_version": 3,
+    "name": "LinkedIn Scraper",
+    "version": "1.0.0",
+    "description": "Scrapes LinkedIn profiles from company websites.",
+    "permissions": [
+      "activeTab",
+      "scripting",
+      "storage"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "action": {
+      "default_popup": "popup.html"
+    },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["content.js"]
+      }
+    ]
+}
+
