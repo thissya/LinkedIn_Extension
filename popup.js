@@ -9,6 +9,8 @@ document.getElementById('scrape').addEventListener('click', () => {
                 chrome.scripting.executeScript({
                     target: { tabId: tabs[0].id },
                     files: ['content.js']
+                }, () => {
+                    chrome.tabs.sendMessage(tabs[0].id, { type: 'scrape' });
                 });
             }
         });
@@ -31,7 +33,6 @@ function displayProfiles(url) {
     });
 }
 
-// Automatically display profiles for the current tab when the popup is opened
 chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
     displayProfiles(tabs[0].url);
 });

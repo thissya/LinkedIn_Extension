@@ -1,3 +1,9 @@
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.type === 'scrape') {
+        scrapeLinkedInProfiles();
+    }
+});
+
 function scrapeLinkedInProfiles() {
     console.log("Content script is running...");
 
@@ -6,7 +12,7 @@ function scrapeLinkedInProfiles() {
     chrome.storage.local.get('profiles', (data) => {
         if (data.profiles && data.profiles[url]) {
             console.log("Profiles already scraped for this URL.");
-            return;  // Exit if profiles are already scraped
+            return;  
         }
 
         const links = document.querySelectorAll('a[href*="linkedin.com/"]');
@@ -18,5 +24,3 @@ function scrapeLinkedInProfiles() {
         chrome.runtime.sendMessage({ type: 'profiles', url: url, profiles: profiles });
     });
 }
-
-scrapeLinkedInProfiles();
